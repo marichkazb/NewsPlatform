@@ -5,7 +5,7 @@ import { Container } from '../globalStyles';
 
 export const Nav  = styled.div `
    background: #75DDDD; 
-   height: 80px; 
+   height: 50px; 
    display: flex; 
    align-items: center;
    justify-content: center; 
@@ -77,12 +77,12 @@ export const NavMenu = styled.ul`
 `;
 
 export const NavItem = styled.li`
-  height: 80px;
+  height: 50px;
   border-bottom: 2px solid transparent;
   font-family: 'Montserrat', sans-serif;
 
   &:hover {
-    border-bottom: 2px solid #4b59f7;
+    border-bottom: 2px solid #0E3B43;
   }
 
   @media screen and (max-width: 960px) {
@@ -114,3 +114,9 @@ export const NavLinks = styled(Link)`
     }
   }
 `;
+
+
+
+export const Search = styled.div `
+   width: 200, 
+`

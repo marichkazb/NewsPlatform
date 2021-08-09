@@ -10,14 +10,14 @@ export default function(req: Request, res: Response, next: NextFunction) {
     try {
         const token = req.headers.authorization.split(' ')[1]
         if (!token) {
-            return res.status(403).json({message: "Пользователь не авторизован"})
+            return res.status(403).json({message: "Пользователь не авторизован токен"})
         }
         req.userId = jwt.verify(token, 'secret')?.id
         console.log({jwt: jwt.verify(token, 'secret')})
         next()
     } catch (e) {
         console.log(e)
-        return res.status(403).json({message: "Пользователь не авторизован"})
+        return res.status(403).json({message: "Пользователь"})
     }
 }
 

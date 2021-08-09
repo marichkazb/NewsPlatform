@@ -19,6 +19,16 @@ const getTodoTasks = async (req: Request, res: Response) => {
     }
 }
 
+const getAllTodos = async (req: Request, res: Response) => {
+    try {
+        const todos = await TodoTask.find({isDeleted: false});
+        return res.json(todos);
+    } catch (err) {
+        console.log(err.message);
+        return res.status(403).json({message: "не получили все новости"})
+    }
+}
+
 const createTodoTask = async (req: Request, res: Response) => {
     console.log(req.body);
     // const errors = validationResult(req);
@@ -28,13 +38,12 @@ const createTodoTask = async (req: Request, res: Response) => {
     //         .json({errors: errors.array()});
     // }
 
-    const {title, description, year, isPublic = false, isCompleted = false} = req.body
+    const {title, description, time, isPublic = false} = req.body
     const todoFields = {
         title,
         description,
-        year,
+        time,
         isPublic,
-        isCompleted,
         userId: req.userId
     };
     try {
@@ -50,13 +59,12 @@ const createTodoTask = async (req: Request, res: Response) => {
 const updateTodo = async (req: Request, res: Response) => {
     try {
         // Update task
-        const {title, description, year, isPublic, isCompleted} = req.body
+        const {title, description, time, isPublic} = req.body
         const todoFields = {
             title,
             description,
-            year,
+            time,
             isPublic,
-            isCompleted,
             userId: req.userId
         };
         const updatedTask = await TodoTask.findOneAndUpdate({_id: req.params.id, userId: req.userId, isDeleted: {$ne: true}}, todoFields);
@@ -88,9 +96,14 @@ const deleteTodoTask = async (req: Request, res: Response) => {
     }
 }
 
-router.get('/:id', authMiddle, sendOneTodo );
+
+router.get('/all', getAllTodos);
+router.get('/tasks', authMiddle, getTodoTasks);
+router.get('/one/:id', authMiddle, sendOneTodo );
 router.delete("/:id", authMiddle,  deleteTodoTask);
-router.get('/', authMiddle, getTodoTasks);
+router.get('/user-todo', authMiddle, getTodoTasks);
+
+
 router.post('/',
     [
         check("title", "Title is required").not().isEmpty(),

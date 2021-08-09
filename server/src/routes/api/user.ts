@@ -90,8 +90,8 @@ const getUsers = async  (req: Request, res: Response)=> {
 const getUserData = async(req: Request, res: Response) => {
     console.log('USER DATA: ', req.userId)
     try{
-        let user :any = await User.findOne({userId: req.userId}).lean();
-        return res.json({user})
+        const user :any = await User.findOne({_id: req.userId}).lean();
+        return res.json(user)
     }catch (err) {
         console.log(err.message);
         res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -100,7 +100,7 @@ const getUserData = async(req: Request, res: Response) => {
 
 
 
-router.get('/get-data', authMiddle, getUserData)
+router.get('/get-data', authMiddle,  getUserData)
 // router.get('/', authMiddle, getUsers);
 router.post('/register',[
         check("email", "Please include a valid email").isEmail(),

@@ -17,6 +17,8 @@ import axios from "axios";
 import {loginValidationSchema} from "../../validators/registerValidation";
 import {LinearGradient} from "expo-linear-gradient";
 
+
+
 const Login = () => {
 
     let history = useHistory();
@@ -30,7 +32,7 @@ const Login = () => {
                 if (res.status === 200) {
                     console.log(res);
                     localStorage.setItem('token', res.data.token);
-                    history.push('./todo-list')
+                    history.push('./')
                 } else console.log("Operation crashed")
             })
     }
@@ -40,6 +42,7 @@ const Login = () => {
 
     return(
         <>
+
             <LinearGradient
                 colors={['#75DDDD', '#172A3A']}
                 useAngle={true}
@@ -58,6 +61,7 @@ const Login = () => {
 
                         }}
                         onSubmit={onSubmit}
+                        validationSchema={loginValidationSchema}
                     >
 
 
@@ -77,6 +81,7 @@ const Login = () => {
                                     name="password"
                                     placeholder="Enter password"
                                     type='password'
+                                    secureTextEntry
                                 />
 
 

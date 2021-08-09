@@ -1,16 +1,28 @@
 import config from "config";
 import { ConnectionOptions, connect } from "mongoose";
+import * as mongoose from "mongoose";
 
 const connectDB = async () => {
+
+  const DB_URL = `mongodb+srv://user:user@cluster0.dxjsm.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+
   try {
-    const mongoURI: string = config.get("mongoURI");
-    const options: ConnectionOptions = {
+    // const mongoURI: string = config.get("mongoURI");
+    // const options: ConnectionOptions = {
+    //   useNewUrlParser: true,
+    //   useCreateIndex: true,
+    //   useFindAndModify: false,
+    //   useUnifiedTopology: true,
+    // };
+    // await connect(mongoURI, options);
+
+    await mongoose.connect(DB_URL, {
       useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-    };
-    await connect(mongoURI, options);
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true, })
+
+
     console.log("MongoDB Connected...");
   } catch (err) {
     console.error(err.message);

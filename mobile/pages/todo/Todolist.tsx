@@ -37,23 +37,23 @@ const TodoList = () => {
     // }, [])
     // console.log(userData)
 
-    const [userData, setUserData] = useState([]);
-        useEffect(() => {
-        (async () => {
-             const {data, status} = await axios.get('http://localhost:5000/api/users/get-data/')
-                console.log('Data:', data)
-            if (status === 200) {
-                setUserData(data);
-             }
-       })();
-     }, [])
-     console.log('userData:', userData)
+    // const [userData, setUserData] = useState([]);
+    //     useEffect(() => {
+    //     (async () => {
+    //          const {data, status} = await axios.get('http://localhost:5000/api/users/get-data/')
+    //             console.log('Data:', data)
+    //         if (status === 200) {
+    //             setUserData(data);
+    //          }
+    //    })();
+    //  }, [])
+    //  console.log('userData:', userData)
 
 
     const [todos, setTodos] = useState([])
     useEffect(() => {
        (async () => {
-           const {data, status} = await httpService.get({url: `todos/`})
+           const {data, status} = await httpService.get({url: `todos/tasks`})
            if (status === 200) {
                setTodos(data);
            }
@@ -84,7 +84,7 @@ const TodoList = () => {
             .then(res => {
                 localStorage.removeItem('token');
                 history.push({
-                    pathname: './',
+                    pathname: './auth',
                 })
 
                 console.log(res);
@@ -102,24 +102,21 @@ const TodoList = () => {
             <View style={styles.container}>
                 <View style={{
                     flexDirection: 'row',
-                    width: 340,
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
+                    alignItems: 'center', justifyContent: 'center'
                 }}>
-                <Button
-                    onPress={redirect}
-                    title="Create new Todo!"
-                />
+                {/*<Button*/}
+                {/*    onPress={redirect}*/}
+                {/*    title="Create new Todo!"*/}
+                {/*/>*/}
                     <View style={{
                         alignItems: 'center',
                         justifyContent: 'center'
 
                     }}>
-                        <Text> Data: {userData} </Text>
-                <Button
-                    onPress={() => handleAccDelete()}
-                    title="Exit account"
-                />
+                {/*<Button*/}
+                {/*    onPress={() => handleAccDelete()}*/}
+                {/*    title="Exit account"*/}
+                {/*/>*/}
                     </View>
                 </View>
 
@@ -127,40 +124,62 @@ const TodoList = () => {
                     {todos.map((todo, index) =>
 
                     <View key={index} style={{flexDirection: 'row'}}>
-                    <View style={{width: 350, marginRight: 40, borderTopColor: '#aeaeae',
+                    <View style={{ borderTopColor: '#fff',
                         borderTopWidth: 2,
-                        marginLeft: 0,paddingTop: 19, paddingBottom: 19}}>
-                        <Text style={{fontSize: 17, fontWeight: 'bold'}}>
-                            {todo.title}, {todo.year}
+                        marginLeft: 0,paddingTop: 19, paddingBottom: 19, flexDirection: 'row', justifyContent:'space-evenly'}}>
+
+                        <View>
+                        <Text style={{fontSize: 17, fontWeight: 'bold',         color: '#fff'
+                        }}>
+                            {todo.title}
                         </Text>
 
-                        <Text>
+                        <Text style={{color: '#fff'}}>
                             {todo.description}
                         </Text>
 
-                        <Text style={{fontSize: 11}}>
-                            {todo.isCompleted ? 'Completed' : 'Not completed'},{todo.isPrivate ? 'Private' : 'Not Private' }
+                        <Text style={{fontSize: 11, color: '#fff'}}>
+                           🕔 {todo.time} min to read
                         </Text>
+                        </View>
+
+
+
+
+                        <View style={{flexDirection: 'row', paddingTop: 19, paddingLeft: -39,  color: '#fff' }}>
+                            <Text
+                                style={styles.edit}
+                                onPress={() => handleEdit(todo._id)}
+                            >
+                                Edit
+                            </Text>
+                            <Text
+                                style={styles.edit}
+                                onPress={() => handleDelete(todo)}
+                            >
+                                Delete
+                            </Text>
+                        </View>
 
                     </View>
 
 
 
 
-                    <View style={{flexDirection: 'row', paddingTop: 19}}>
-                        <Text
-                            style={styles.edit}
-                            onPress={() => handleEdit(todo._id)}
-                        >
-                            Edit
-                        </Text>
-                        <Text
-                            style={styles.edit}
-                            onPress={() => handleDelete(todo)}
-                        >
-                            Delete
-                        </Text>
-                    </View>
+                    {/*<View style={{flexDirection: 'row', paddingTop: 19, paddingLeft: -39}}>*/}
+                    {/*    <Text*/}
+                    {/*        style={styles.edit}*/}
+                    {/*        onPress={() => handleEdit(todo._id)}*/}
+                    {/*    >*/}
+                    {/*        Edit*/}
+                    {/*    </Text>*/}
+                    {/*    <Text*/}
+                    {/*        style={styles.edit}*/}
+                    {/*        onPress={() => handleDelete(todo)}*/}
+                    {/*    >*/}
+                    {/*        Delete*/}
+                    {/*    </Text>*/}
+                    {/*</View>*/}
                     </View>
                     )}
                 </View>
@@ -182,20 +201,19 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'flex-start',
         alignItems: 'center',
-        borderWidth: 0.5,
-        borderColor: '#aeaeae',
-        padding: 20,
-        margin: 20,
-        height: 600,
-        width: 800
+        paddingTop: 10,
+        color: '#fff'
+
+
 
     },
 
     formContainer: {
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'flex-start',
-        padding: 15,
-        margin: 10,
+        color: '#fff'
+
+
 
     },
 
@@ -203,7 +221,9 @@ const styles = StyleSheet.create({
         margin: 10,
         fontWeight: 'bold',
         fontSize: 15,
-        marginTop: 0
+        marginTop: 0,
+        color: '#fff'
+
     }
 
 

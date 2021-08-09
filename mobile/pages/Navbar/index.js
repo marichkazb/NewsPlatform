@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
-import { Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks} from './NavbarElements'
+import { Nav, NavbarContainer, NavLogo, MobileIcon, NavMenu, NavItem, NavLinks, Search} from './NavbarElements'
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { TextInput } from 'react-native'
 import { IconContext } from 'react-icons/lib'
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 const Navbar  = () => {
@@ -12,8 +14,7 @@ const Navbar  = () => {
 
    return (
       <>
-         <IconContext.Provider value={{color: '#fff' }}>
-         <Nav> 
+         <Nav>
             <NavbarContainer>
                <NavLogo to='/'>
                   News site
@@ -23,13 +24,13 @@ const Navbar  = () => {
                </MobileIcon>
                <NavMenu onClick={handleClick} click={click}>
                   <NavItem>
+                     <Search to='/'>Search</Search>
                      <NavLinks to='/' > My account </NavLinks>
-                     
+
                   </NavItem>
                </NavMenu> 
                </NavbarContainer> 
             </Nav>
-         </IconContext.Provider>
       </>
    )
 }

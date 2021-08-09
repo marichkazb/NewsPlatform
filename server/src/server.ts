@@ -10,9 +10,9 @@ let app = express()
 
 app.use(cors())
 
-
 // Connect to MongoDB
 connectDB().then(() => { console.log('Databases connnnnnnnnnnnnnnnnencted') });
+
 
 // Express configuration
 app.set("port", process.env.PORT || 5000);
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // @desc    Test Base API
 // @access  Public
 
-app.get("/", (_req, res) => {
+app.get("/", (req, res) => {
   res.send("API Running ");
 });
 

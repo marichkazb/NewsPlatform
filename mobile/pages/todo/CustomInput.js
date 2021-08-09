@@ -35,8 +35,10 @@ const styles = StyleSheet.create({
     height: 40,
     width: '100%',
     margin: 10,
+    marginHorizontal: 0,
     padding: 10,
     borderColor: 'gray',
+    borderRadius: 6,
     borderWidth: StyleSheet.hairlineWidth,
     backgroundColor: '#fff'
   },

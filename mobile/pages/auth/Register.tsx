@@ -14,7 +14,7 @@ import httpService from "../../services/http.service";
 import {Field, Formik} from "formik";
 import CustomInput from "../todo/CustomInput";
 import {postValidationSchema} from '../../validators/todoValidator'
-import {loginValidationSchema} from "../../validators/registerValidation";
+import {loginValidationSchema, registerValidationSchema} from "../../validators/registerValidation";
 import {LinearGradient} from "expo-linear-gradient";
 
 const Register = () => {
@@ -39,7 +39,7 @@ const Register = () => {
             console.log(res)
                     if (res.status === 200) {
                         localStorage.setItem('token', res.data.token);
-                        history.push('./todo-list')
+                        history.push('./')
                 } else console.log("Operation crashed")
             })
         }
@@ -70,7 +70,7 @@ const Register = () => {
 
                 }}
                 onSubmit={onSubmit}
-                validationSchema={loginValidationSchema}
+                validationSchema={registerValidationSchema}
             >
 
 
@@ -96,6 +96,7 @@ const Register = () => {
                             name="password"
                             placeholder="Enter password"
                             type='password'
+                            secureTextEntry
                         />
 
                         <Text style={styles.name}>Verify password</Text>
@@ -104,12 +105,13 @@ const Register = () => {
                             name="verify_password"
                             placeholder="Enter password"
                             type = 'password'
+                            secureTextEntry
                         />
 
                         <View style={{paddingTop: 40}}>
                             <Button
                                 onPress={handleSubmit}
-                                title="Login"
+                                title="Register"
                                 disabled={!isValid}
                                 color='#172A3A'
                             />

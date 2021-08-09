@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 
 
-export const loginValidationSchema = yup.object().shape({
+export const registerValidationSchema = yup.object().shape({
   username: yup
     .string()
     .required('Username is required'),
@@ -18,5 +18,19 @@ export const loginValidationSchema = yup.object().shape({
     .min(1, ({ min, value }) => `${min - value.length} characters to go`)
     .required('Password verification is required')
     .oneOf([yup.ref('password'), null], 'Passwords must match'),
+
+})
+
+
+
+
+export const loginValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .required('Email is required'),
+  password: yup
+    .string()
+    .min(1, ({ min, value }) => `${min - value.length} characters to go`)
+    .required('Password is required'),
 
 })
